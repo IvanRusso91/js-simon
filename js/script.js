@@ -17,12 +17,8 @@ Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei num
 const main = document.querySelector('main');
 const FIVE_NUMBER= 5;
 const boxNumber = 100;
-let timer = setInterval(countDown, 1000);
-let time = 5;
-
-
-const display = document.querySelector('display');
-
+ 
+let counter = 5;
 
 document.getElementById('play').addEventListener('click', play);
 
@@ -30,7 +26,7 @@ document.getElementById('play').addEventListener('click', play);
 function play(){
   reset();
   generatePlay();
-  countDown();
+  timer(counter);
 
 }
 
@@ -39,7 +35,7 @@ function generatePlay(){
   const extracted = fiveNumber()
   const field = document.createElement('div');
   field.className = 'field';
-  
+
   for (let i = 1; i <= 5; i++){
     
     const cell = document.createElement('div');
@@ -48,19 +44,24 @@ function generatePlay(){
 
     field.append(cell);
   }
+ 
   main.append(field);
 }
 
+function timer(counter){
+  
+  const display = document.createElement('div');
+  display.className = 'display';
+  main.append(display);
 
-
-function countDown(){
-  time--;
-  console.log(time);
-  if(time < 0);
-  clearInterval(timer);
-  console.log('Fine');  
+  const timer = setInterval(() => { 
+    display.innerHTML= counter;
+    counter--;  
+    if(counter < 0){
+      clearInterval(timer)
+    }
+  },1000)
 }
-
 
 function fiveNumber(){
   const estratto= [];
